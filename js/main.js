@@ -144,4 +144,3 @@ const createPhotoDescription = (index) => ({
 
 const arrayPhotoDescriptions = Array.from({length: 25}, (_, index) => createPhotoDescription(index));
 console.log(arrayPhotoDescriptions);
-
