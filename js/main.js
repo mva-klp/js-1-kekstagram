@@ -1,22 +1,20 @@
 //Генерация случайного целого числа из диапазона от a до b включительно
 
-function getRandomPositiveInteger ( a, b = 1 ) {
+const getRandomPositiveInteger = ( a, b = 1 ) => {
   if (a === undefined) {
     throw new Error ('Первый параметр должен быть число');
   }
   const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 getRandomPositiveInteger(0,1);
 
 
 //Проверка строки string на превышение длины length
 
-function checkStringLength (string, length) {
-  return string.length <= length;
-}
+const checkStringLength = (string, length) => string.length <= length;
 
 checkStringLength('gfdsgdfggfdgfdgdfgdg', 10);
 
@@ -92,13 +90,11 @@ const MAX_NUMBERS_OF_COMMENTS = 10;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 //генерация комментария из одного или двух пердложений случайным образом
-const createMessage = () => {
-  if (getRandomPositiveInteger(1, 2) === 1){
-    return getRandomArrayElement(SENTENCES);
-  } else {
-    return `${getRandomArrayElement(SENTENCES)} ${getRandomArrayElement(SENTENCES)}`;
-  }
-};
+const createMessage = () =>
+  Array.from({length: getRandomPositiveInteger(1, 2)}, () =>
+    getRandomArrayElement(SENTENCES)
+  ).join(' ');
+
 
 //Генерация id
 //массив хранит назначенные ранее id для комментариев
@@ -124,7 +120,8 @@ const createComment = () => ({
 });
 
 //массив комментариев к фотографии. случайное количество от 1 до MAX_NUMBERS_OF_COMMENTS
-const getArrayComments = () => Array.from({length: getRandomPositiveInteger(1, MAX_NUMBERS_OF_COMMENTS)}, createComment);
+const getArrayComments = () =>
+  Array.from({length: getRandomPositiveInteger(1, MAX_NUMBERS_OF_COMMENTS)}, createComment);
 
 const getDescription = () => {
   const index = getRandomPositiveInteger(0, DESCRIPTIONS.length - 1);
@@ -142,5 +139,8 @@ const createPhotoDescription = (index) => ({
   comments: getArrayComments(),
 });
 
-const arrayPhotoDescriptions = Array.from({length: 25}, (_, index) => createPhotoDescription(index));
+const getPictures = () =>
+  Array.from({length: 25}, (_, index) =>
+    createPhotoDescription(index));
 
+getPictures();
